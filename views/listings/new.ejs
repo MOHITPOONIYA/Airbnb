@@ -1,0 +1,124 @@
+<%layout("layouts/boilerplate.ejs") -%>
+<div class="row">
+  <div class="col-8 offset-2">
+    <br>
+    <h3>Create a New Listing</h3>
+    <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" 
+          id="title" 
+          placeholder="Add a catchy title" 
+          name="listing[title]" 
+          class="form-control" 
+          required/>
+          <div class="valid-feedback">
+            Title looks fine
+          </div>
+          <div class="invalid-feedback">
+            Title should be right
+          </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" 
+          placeholder="Enter description" 
+          name="listing[description]" 
+          class="form-control" required></textarea>
+          <div class="invalid-feedback">
+            Description should be right
+          </div>
+          <div class="valid-feedback">
+            Description looks fine
+          </div>
+      </div>
+      
+      <div class="row">
+        <div class="mb-3 col-md-4" >
+          <label for="image" class="form-label">Upload Image</label>
+          <input type="file" 
+            id="image" 
+            placeholder="Enter image URL/Link" 
+            name="listing[image]" 
+            class="form-control" />
+            required
+        </div>
+        <div class="mb-3 col-md-4">
+        <label for="category" class="form-label">Category</label>
+        <select name="listing[category]" id="category" class="form-control" required>
+          <option value="" disabled selected>Select a category</option>
+          <option value="Trending">Trending</option>
+          <option value="Rooms">Rooms</option>
+          <option value="Iconic Cities">Iconic Cities</option>
+          <option value="Mountains">Mountains</option>
+          <option value="Castles">Castles</option>
+          <option value="Amazing Pools">Amazing Pools</option>
+          <option value="Camping">Camping</option>
+          <option value="Boats">Boats</option>
+        </select>
+        <div class="invalid-feedback">Please select a category.</div>
+      </div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">Price</label>
+          <input type="text" 
+            id="price" 
+            placeholder="1200" 
+            name="listing[price]" 
+            class="form-control" 
+            required 
+          />
+            <div class="invalid-feedback">
+              Price - is invalid
+            </div>
+            <div class="valid-feedback">
+            Price looks fine
+          </div>
+        </div>
+
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label">Country</label>
+          <input type="text" 
+            id="country" 
+            placeholder="India" 
+            name="listing[country]" 
+            class="form-control" 
+            required/>
+            <div class="valid-feedback">
+            Country looks fine
+          </div>
+          <div class="invalid-feedback">
+            Wrong country
+          </div>
+            
+        </div>
+      </div>
+
+      
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" 
+          id="location" 
+          placeholder="Barmer, Rajasthan" 
+          name="listing[location]" 
+          class="form-control"
+          required />
+          <div class="valid-feedback">
+            Location looks fine
+          </div>
+          <div class="invalid-feedback">
+            Location Wrong
+          </div>
+          
+      </div>
+      <br>
+      <button class="btn btn-dark add-btn">Add</button>
+      <br><br>
+    </form>
+  </div>
+</div>
+
