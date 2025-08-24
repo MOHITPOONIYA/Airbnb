@@ -35,7 +35,7 @@ router.route("/:id")
 router.get("/:id/edit", isLoggedIn,isOwner,asyncWrap(controllerListing.renderEditForm));
 
 // Route to show listings by category
-router.get('/category/:categoryName', async (req, res) => {
+router.get('/category/:categoryName', asyncWrap( async (req, res) => {
   const { categoryName } = req.params;
   const allListings = await Listing.find({ category: categoryName });
   
@@ -46,6 +46,6 @@ router.get('/category/:categoryName', async (req, res) => {
   }
 
   res.render('listings/index.ejs', { allListings ,activeCategory: categoryName});
-});
+}));
 
 module.exports = router;

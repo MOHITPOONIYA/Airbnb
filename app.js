@@ -2,7 +2,6 @@ if(process.env.NODE_ENV!= "production"){
   require("dotenv").config();
 }
 
-
 const express = require("express");
 const app = express();
 const mongoose = require ("mongoose");
@@ -21,12 +20,15 @@ const listingRouter = require("./routes/listing.js")
 const reviewRouter = require("./routes/review.js")
 const userRouter = require("./routes/user.js")
 
+
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname,"/public")))
 app.engine("ejs",ejsMate);
+
+
 
 const dbUrl = process.env.ATLAS_URL;
 
@@ -37,6 +39,8 @@ main().then((res)=>{console.log("connection of mongoose successfull")})
 .catch((err)=>{
   console.log(err);
 })
+
+
 
 const store = MongoStore.create({
   mongoUrl:dbUrl,
@@ -63,7 +67,6 @@ const sessionOption = {
 }
 
 
-
 app.use(session(sessionOption));
 app.use(flash());
 //passport
@@ -74,18 +77,24 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
+
 app.use((req,res,next)=>{
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currUser=req.user;
   next();
 })
+
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 //listings
 app.use("/listings",listingRouter);
 ///Review route
 app.use("/listings/:id/reviews",reviewRouter);
 ///User router
 app.use("/",userRouter);
+
 
 // app.use("*", (req, res, next) => {
 //   next(err);
@@ -97,11 +106,14 @@ app.listen(8080,()=>{
   console.log("server working properly");
 })
 
-app.use((err,req,res,next)=>{
-  let{status=505,message="error"}=err;
-  res.status(status).render("error.ejs",{message});
-  // res.status(status).send(message);
-})
+app.use((err, req, res, next) => {
+    let { status = 500, message = "Something went wrong!" } = err;
+    res.status(status).render("error.ejs", { 
+        message, 
+        // Pass all res.locals to the template
+        ...res.locals 
+    });
+});
 
 //testing
 // app.get("/test",async (req,res)=>{
