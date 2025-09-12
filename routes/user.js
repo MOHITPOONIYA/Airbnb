@@ -11,7 +11,15 @@ const controllerUser = require("../controllers/users.js");
 //sign up
 router.route("/signup")
       .get(controllerUser.renderSignupForm)
-      .post( controllerUser.signup)
+//       .post( controllerUser.signup)
+
+router.post("/signup-request", controllerUser.signupRequest);
+
+// show OTP page
+router.get("/verify-otp", controllerUser.renderOtpPage);
+
+// verify OTP → finally signup
+router.post("/verify-otp", controllerUser.verifyOtp);
 
 
 //login
